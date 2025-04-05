@@ -68,6 +68,7 @@ main {
         .button-group {
             margin-top: 1rem;
             display: flex;
+            flex-wrap: wrap;
             gap: 1rem;
 
             .copy-btn,
@@ -157,6 +158,16 @@ main {
 
 .fluid-custom-root {
     @include fluid-size(font-size, 10px, 20px, $root-size: 10px);
+}
+
+.fluid-var-css {
+    --h1-title: #{fluid(20px, 32px)};
+    font-size: var(--h1-title);
+}
+
+.fluid-var-scss {
+    $h1-title: fluid(20px, 32px);
+    font-size: $h1-title;
 }
 
 .browser-support {

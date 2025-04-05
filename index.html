@@ -176,6 +176,32 @@ $max-bp: 1440px;
                 <code>@include <strong>fluid-size</strong>(<strong>font-size</strong>, 40px, 100px);</code>
             </section>
 
+            <section class="feature">
+                <h2>6. Variable Scaling Party 🎊</h2>
+                <h3 class="fluid-var-css">I use a CSS variable to scale from 20px to 32px! 🎨</h3>
+                <h3 class="fluid-var-scss">I use an SCSS variable to scale from 20px to 32px! 🚀</h3>
+                <br />
+                <div class="code-examples">
+                    <div>
+                        <p><strong>CSS Variable:</strong></p>
+                        <code>
+                            --h1-title: #{fluid(20px, 40px)};<br />
+                            font-size: var(--h1-title);
+                        </code>
+                    </div>
+                    <br />
+                    <div>
+                        <p><strong>SCSS Variable:</strong></p>
+                        <code>
+                            h1 {<br />
+                            &nbsp;&nbsp;$h1-title: fluid(20px, 40px);<br />
+                            &nbsp;&nbsp;font-size: $h1-title;<br />
+                            }
+                        </code>
+                    </div>
+                </div>
+            </section>
+
             <!-- Supported Units -->
             <section class="extra">
                 <h2>Units We’re Vibing With 📏</h2>
