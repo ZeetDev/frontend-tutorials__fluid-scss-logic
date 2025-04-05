@@ -21,6 +21,108 @@
 
         <!-- Main Content -->
         <main>
+            <!-- New Section: Copy & Download -->
+            <section class="code-grab">
+                <h2>Grab the Fluid Magic! 🪄</h2>
+                <p>
+                    Ready to stretch your designs? Snag the <code>fluid</code> logic below! Copy it or download the full
+                    SCSS file—your choice, you coding rockstar! 😎
+                </p>
+                <div class="code-box">
+                    <textarea id="fluid-code" readonly rows="10" cols="50">
+@use 'sass:math';
+
+$min-bp: 320px;
+$max-bp: 1440px;
+
+@function round($number, $decimals: 0) {
+    $factor: 1;
+    @if $decimals > 0 {
+        @for $i from 1 through $decimals {
+            $factor: $factor * 10;
+        }
+    }
+    @return math.div(math.round($number * $factor), $factor);
+}
+
+@function to-px($value, $root-size: 16px) {
+    @if unit($value) == 'rem' {
+        @return ($value / 1rem) * $root-size;
+    } @else if unit($value) == 'em' {
+        @return ($value / 1em) * $root-size;
+    } @else if unit($value) == '' {
+        @return $value * 1px;
+    } @else {
+        @return $value;
+    }
+}
+
+@function to-rem($value, $root-size: 16px) {
+    @return round(($value / $root-size), 2) * 1rem;
+}
+
+@function fluid(
+    $min-size,
+    $max-size,
+    $min-vp: $min-bp,
+    $max-vp: $max-bp,
+    $unit: vw,
+    $root-size: 16px
+) {
+    $min-px: to-px($min-size, $root-size);
+    $max-px: to-px($max-size, $root-size);
+    $min-vp-px: to-px($min-vp, $root-size);
+    $max-vp-px: to-px($max-vp, $root-size);
+
+    $slope: math.div($max-px - $min-px, $max-vp-px - $min-vp-px);
+
+    $slope-vp: round($slope * 100, 2);
+
+    $intercept-px: $min-px - ($slope * $min-vp-px);
+    $intercept-rem: to-rem($intercept-px, $root-size);
+
+    $min-rem: to-rem($min-px, $root-size);
+    $max-rem: to-rem($max-px, $root-size);
+
+    $fluid-expression: unquote('#{$slope-vp}#{$unit} + #{$intercept-rem}');
+
+    @return unquote('clamp(#{$min-rem}, #{$fluid-expression}, #{$max-rem})');
+}
+
+@mixin fluid-size(
+    $property,
+    $min-size,
+    $max-size,
+    $min-vp: $min-bp,
+    $max-vp: $max-bp,
+    $unit: vw,
+    $root-size: 16px
+) {
+    $fallback: to-rem(to-px($min-size, $root-size), $root-size);
+    #{$property}: $fallback;
+
+    @supports (font-size: clamp(1rem, 1vw + 1rem, 2rem)) {
+        #{$property}: fluid($min-size, $max-size, $min-vp, $max-vp, $unit, $root-size);
+    }
+}
+
+        </textarea
+                    >
+                    <div class="button-group">
+                        <button onclick="copyCode()" class="copy-btn">Copy Code 📋</button>
+                        <a href="/fluid.scss" download class="download-btn">Download fluid.scss ⬇️</a>
+                    </div>
+                </div>
+                <script>
+                    function copyCode() {
+                        const code = document.getElementById('fluid-code');
+                        code.select();
+                        document.execCommand('copy');
+                        alert('Code copied! Go stretch some designs! 🎉');
+                    }
+                </script>
+            </section>
+
             <!-- Intro -->
             <section class="intro">
                 <h2>Why This Rocks? 🤘</h2>

@@ -1,5 +1,5 @@
 @import 'reset';
-@import 'fluid-logic';
+@import 'fluid';
 
 :root {
     --site-primary-color: #0ea5e9;
@@ -32,6 +32,64 @@ main {
     max-width: 1400px;
     margin: 0 auto;
     padding: 2rem;
+}
+
+.code-grab {
+    background: var(--color-white);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    color: var(--color-black);
+
+    h2 {
+        color: var(--site-secondary-color);
+        margin-bottom: 1rem;
+    }
+
+    p:has(+ .code-box) {
+        margin-bottom: 1rem;
+    }
+
+    .code-box {
+        background: #f4f4f4;
+        padding: 1rem;
+        border-radius: 5px;
+
+        textarea {
+            width: 100%;
+            font-family: monospace;
+            border: 1px solid #ddd;
+            padding: 0.5rem;
+            resize: none;
+            background: #fff;
+        }
+
+        .button-group {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+
+            .copy-btn,
+            .download-btn {
+                padding: 0.5rem 1rem;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                text-decoration: none;
+                transition: 0.3s;
+            }
+
+            .copy-btn {
+                background: var(--site-primary-color);
+            }
+
+            .download-btn {
+                background: var(--site-secondary-color);
+            }
+        }
+    }
 }
 
 .intro,
