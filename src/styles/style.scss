@@ -1,0 +1,7 @@
+@import 'reset';
+@import 'fluid-logic';
+
+.h1-title {
+    // font-size: fluid(2rem, 6.25rem);
+    font-size: fluid(2.5rem, 7.5rem);
+}

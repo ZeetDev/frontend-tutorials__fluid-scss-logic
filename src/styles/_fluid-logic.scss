@@ -1,0 +1,45 @@
+@use 'sass:math';
+
+$min-bp: 320px;
+$max-bp: 1440px;
+
+// Round a number to a specified number of decimals
+@function round($number, $decimals: 0) {
+    $n: 1;
+    @if $decimals > 0 {
+        @for $i from 1 through $decimals {
+            $n: $n * 10;
+        }
+    }
+    @return math.div(math.round($number * $n), $n);
+}
+
+// Convert px to rem
+@function rem($px) {
+    @return math.div($px, 16px) * 1rem;
+}
+
+// Convert rem to px (assuming 1rem = 16px)
+@function to-px($value) {
+    @if unit($value) == 'rem' {
+        @return math.div($value, 1rem) * 16px;
+    } @else {
+        @return $value; // Assume it's already in px
+    }
+}
+
+// Fluid scaling function
+@function fluid($min, $max, $min-vp: $min-bp, $max-vp: $max-bp, $unit: vw) {
+    // Convert inputs to px if they are in rem
+    $min-px: to-px($min);
+    $max-px: to-px($max);
+
+    // Calculate slope and intercept in px
+    $slope: math.div($max-px - $min-px, $max-vp - $min-vp);
+    $slope-vw: round($slope * 100, 2);
+    $intercept: round(rem($min-px - $slope * $min-vp), 2);
+    $min-rem: round(rem($min-px), 2);
+    $max-rem: round(rem($max-px), 2);
+
+    @return clamp(#{$min-rem}, #{$slope-vw}#{$unit} + #{$intercept}, #{$max-rem});
+}
