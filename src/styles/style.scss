@@ -19,24 +19,24 @@ header {
     padding: 3rem 1rem;
 
     h1 {
-        font-size: 3rem;
+        font-size: fluid(2rem, 3rem);
         margin-bottom: 1rem;
     }
 
     p {
-        font-size: 1.25rem;
+        font-size: fluid(1.125rem, 1.25rem);
     }
 }
 
 main {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: fluid(1.25rem, 2rem);
 }
 
 .code-grab {
     background: var(--color-white);
-    padding: 2rem;
+    padding: fluid(1rem, 2rem);
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 2rem;
@@ -95,7 +95,7 @@ main {
 .intro,
 .extra {
     background: var(--color-white);
-    padding: 2rem;
+    padding: fluid(1rem, 2rem);
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 2rem;
@@ -109,7 +109,7 @@ main {
 
 .feature {
     background: var(--color-white);
-    padding: 2rem;
+    padding: fluid(1rem, 2rem);
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 2rem;
@@ -162,7 +162,7 @@ main {
 .browser-support {
     color: var(--color-black);
     background: var(--color-white);
-    padding: 2rem;
+    padding: fluid(1rem, 2rem);
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 
@@ -178,7 +178,7 @@ main {
 
 footer {
     text-align: center;
-    padding: 2rem;
+    padding: fluid(1rem, 2rem);
     background: var(--site-gradient-color);
     font-size: 1rem;
 
