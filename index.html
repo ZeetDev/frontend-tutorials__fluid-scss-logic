@@ -4,14 +4,134 @@
         <meta charset="UTF-8" />
         <link rel="icon" type="image/svg+xml" href="/vite.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Vite + TS</title>
+        <title>Fluid Design Fiesta: Stretchy Sass Magic! 📐</title>
+        <meta name="title" content="Fluid Design Fiesta | Responsive Sass Design with Flair 🎈" />
+        <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎉</text></svg>"
+        />
     </head>
 
     <body>
-        <div class="container">
-            <h1 class="h1-title">Fluid SCSS Logic</h1>
-        </div>
+        <!-- Header -->
+        <header>
+            <h1>Fluid Design Fiesta 📐</h1>
+            <p>Welcome to the grooviest demo of fluid Design magic! 🌟</p>
+        </header>
 
+        <!-- Main Content -->
+        <main>
+            <!-- Intro -->
+            <section class="intro">
+                <h2>Why This Rocks? 🤘</h2>
+                <p>
+                    Our <code>fluid</code> function makes your sizes stretch and shrink like a rubber band! From tiny
+                    phones to giant screens, it’s got your back— even in old browsers. Let’s dive into the fun! 😄
+                </p>
+            </section>
+
+            <!-- Feature 1: Basic Usage -->
+            <section class="feature">
+                <h2>1. Basic Design Bonanza 🎈</h2>
+                <p class="fluid-basic">
+                    I scale from 20px to 60px as the viewport grows from 320px to 1440px. Resize me and watch me strut!
+                    💃
+                </p>
+                <code>font-size: <strong>fluid(20px, 60px);</strong></code>
+            </section>
+
+            <!-- Feature 2: Custom Breakpoints -->
+            <section class="feature">
+                <h2>2. Custom Breakpoint Bash 🎉</h2>
+                <p class="fluid-custom-bp">I go from 1rem to 2rem between 400px and 1200px. I’m picky but smooth! 😎</p>
+                <code>font-size: fluid(1rem, 2rem, <strong>400px</strong> , <strong>1200px</strong>);</code>
+            </section>
+
+            <!-- Feature 3: Viewport Height Design -->
+            <section class="feature">
+                <h2>3. Height Design Hootenanny 🦄</h2>
+                <div class="fluid-vh-scale">
+                    My height scales from 50px to 100px based on viewport height. Stretch me tall! 🏋️‍♂️
+                </div>
+                <code>height: fluid(50px, 100px, <strong>$unit: vh</strong>);</code>
+            </section>
+
+            <!-- Feature 4: Custom Root Size -->
+            <section class="feature">
+                <h2>4. Root Size Rumble 🌲</h2>
+                <p class="fluid-custom-root">
+                    I scale from 10px to 20px with a 10px root size. Living my rem dreams! 🌈
+                </p>
+                <code>font-size: fluid(10px, 20px, <strong>$root-size: 10px</strong>);</code>
+            </section>
+
+            <!-- Feature 5: Old Browser Fallback -->
+            <section class="feature">
+                <h2>5. Old Browser Boogie 💾</h2>
+                <p class="fluid-basic warning">
+                    In ancient browsers, I stick to 40px (2.5rem). No Design, just chill vibes! 🦖
+                </p>
+                <code>@include <strong>fluid-size</strong>(<strong>font-size</strong>, 40px, 100px);</code>
+            </section>
+
+            <!-- Supported Units -->
+            <section class="extra">
+                <h2>Units We’re Vibing With 📏</h2>
+                <p>
+                    This function is a unit party! It grooves with <strong>px</strong>, <strong>rem</strong>, and
+                    <strong>em</strong> for sizes and breakpoints. Mix and match like a DJ—40px, 1rem, 2em, you name it!
+                    🎧
+                </p>
+            </section>
+
+            <!-- Applicable Properties -->
+            <section class="extra">
+                <h2>Properties We Love to Stretch 🎨</h2>
+                <p>
+                    We don’t list every CSS property (that’d be a novel!), but here are the VIPs where
+                    <code>fluid</code> shines:
+                </p>
+                <ul>
+                    <li><strong>font-size</strong>: Text that grows like a happy plant! 🌱</li>
+                    <li><strong>padding</strong>: Space that flexes with flair! 🛋️</li>
+                    <li><strong>margin</strong>: Gaps that dance to the viewport beat! 💃</li>
+                    <li><strong>width</strong> & <strong>height</strong>: Boxes that stretch like taffy! 🍬</li>
+                </ul>
+            </section>
+
+            <!-- SCSS Version Support -->
+            <section class="extra">
+                <h2>SCSS Version Squad 🛠️</h2>
+                <p>
+                    This magic works with SCSS 1.23.0+ (Dart Sass) because we’re using fancy stuff like
+                    <code>@use</code> and <code>math.div</code>. Older LibSass? Sorry, it’s retired—upgrade to Dart Sass
+                    and join the cool kids! 😎
+                </p>
+            </section>
+
+            <!-- Browser Support -->
+            <section class="browser-support">
+                <h2>Who’s Invited to the Party? 🎈</h2>
+                <ul>
+                    <li>
+                        <strong>Modern Champs:</strong> Chrome 79+, Firefox 75+, Safari 13.1+, Edge 79+ get the full
+                        fluid groove! 🕺
+                    </li>
+                    <li>
+                        <strong>Old Timers:</strong> IE, Safari &lt; 13.1, Chrome &lt; 79 stick to the minimum size.
+                        Safe and steady! 🐢
+                    </li>
+                </ul>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>
+                Made with Sass and a dash of silliness by
+                <a href="https://github.com/ZeetDev" target="_blank">ZeetDev!</a> 💖
+            </p>
+        </footer>
         <script type="module" src="/src/scripts/main.ts"></script>
     </body>
 </html>
