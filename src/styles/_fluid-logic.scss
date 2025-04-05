@@ -1,45 +1,101 @@
 @use 'sass:math';
 
-$min-bp: 320px;
-$max-bp: 1440px;
+// Default breakpoints
+$min-bp: 320px; // Smallest viewport (e.g., mobile)
+$max-bp: 1440px; // Largest viewport (e.g., desktop)
 
 // Round a number to a specified number of decimals
 @function round($number, $decimals: 0) {
-    $n: 1;
+    $factor: 1;
     @if $decimals > 0 {
         @for $i from 1 through $decimals {
-            $n: $n * 10;
+            $factor: $factor * 10;
         }
     }
-    @return math.div(math.round($number * $n), $n);
+    @return math.div(math.round($number * $factor), $factor);
+}
+
+// Convert any value to px
+@function to-px($value, $root-size: 16px) {
+    @if unit($value) == 'rem' {
+        @return ($value / 1rem) * $root-size;
+    } @else if unit($value) == 'em' {
+        @return ($value / 1em) * $root-size; // Assumes root context
+    } @else if unit($value) == '' {
+        @return $value * 1px; // Unitless treated as px
+    } @else {
+        @return $value; // Assume px or compatible
+    }
 }
 
 // Convert px to rem
-@function rem($px) {
-    @return math.div($px, 16px) * 1rem;
+@function to-rem($value, $root-size: 16px) {
+    @return round(($value / $root-size), 2) * 1rem;
 }
 
-// Convert rem to px (assuming 1rem = 16px)
-@function to-px($value) {
-    @if unit($value) == 'rem' {
-        @return math.div($value, 1rem) * 16px;
-    } @else {
-        @return $value; // Assume it's already in px
+// Fluid scaling function (linear and clamped only)
+@function fluid(
+    $min-size,
+    // Minimum size (e.g., 40px, 1rem)
+    $max-size,
+    // Maximum size (e.g., 100px, 2rem)
+    $min-vp: $min-bp,
+    // Minimum viewport width
+    $max-vp: $max-bp,
+    // Maximum viewport width
+    $unit: vw,
+    // Scaling unit (vw or vh)
+    $root-size: 16px // Root font size for rem conversion
+) {
+    // Convert all inputs to px
+    $min-px: to-px($min-size, $root-size);
+    $max-px: to-px($max-size, $root-size);
+    $min-vp-px: to-px($min-vp, $root-size);
+    $max-vp-px: to-px($max-vp, $root-size);
+
+    // Calculate the slope (linear only)
+    $slope: math.div($max-px - $min-px, $max-vp-px - $min-vp-px);
+
+    // Convert slope to viewport unit percentage
+    $slope-vp: round($slope * 100, 2);
+
+    // Calculate intercept in px, then convert to rem
+    $intercept-px: $min-px - ($slope * $min-vp-px);
+    $intercept-rem: to-rem($intercept-px, $root-size);
+
+    // Convert min/max sizes to rem
+    $min-rem: to-rem($min-px, $root-size);
+    $max-rem: to-rem($max-px, $root-size);
+
+    // Build the fluid expression
+    $fluid-expression: unquote('#{$slope-vp}#{$unit} + #{$intercept-rem}');
+
+    // Return clamped result
+    @return unquote('clamp(#{$min-rem}, #{$fluid-expression}, #{$max-rem})');
+}
+
+// Mixin for browser compatibility
+@mixin fluid-size(
+    $property,
+    // CSS property (e.g., font-size)
+    $min-size,
+    // Minimum size (e.g., 40px, 1rem)
+    $max-size,
+    // Maximum size (e.g., 100px, 2rem)
+    $min-vp: $min-bp,
+    // Minimum viewport width
+    $max-vp: $max-bp,
+    // Maximum viewport width
+    $unit: vw,
+    // Scaling unit (vw or vh)
+    $root-size: 16px // Root font size for rem conversion
+) {
+    // Fallback to minimum size for browsers without clamp support
+    $fallback: to-rem(to-px($min-size, $root-size), $root-size);
+    #{$property}: $fallback;
+
+    // Apply fluid scaling where clamp is supported
+    @supports (font-size: clamp(1rem, 1vw + 1rem, 2rem)) {
+        #{$property}: fluid($min-size, $max-size, $min-vp, $max-vp, $unit, $root-size);
     }
-}
-
-// Fluid scaling function
-@function fluid($min, $max, $min-vp: $min-bp, $max-vp: $max-bp, $unit: vw) {
-    // Convert inputs to px if they are in rem
-    $min-px: to-px($min);
-    $max-px: to-px($max);
-
-    // Calculate slope and intercept in px
-    $slope: math.div($max-px - $min-px, $max-vp - $min-vp);
-    $slope-vw: round($slope * 100, 2);
-    $intercept: round(rem($min-px - $slope * $min-vp), 2);
-    $min-rem: round(rem($min-px), 2);
-    $max-rem: round(rem($max-px), 2);
-
-    @return clamp(#{$min-rem}, #{$slope-vw}#{$unit} + #{$intercept}, #{$max-rem});
 }
